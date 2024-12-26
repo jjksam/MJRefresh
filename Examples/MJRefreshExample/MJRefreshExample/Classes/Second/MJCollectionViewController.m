@@ -9,6 +9,7 @@
 #import "MJCollectionViewController.h"
 #import "MJTestViewController.h"
 #import "UIViewController+Example.h"
+#import "MJChiBaoziHeader.h"
 
 @import MJRefresh;
 
@@ -26,7 +27,7 @@ static const CGFloat MJDuration = 2.0;
 @implementation MJCollectionViewController
 #pragma mark - 示例
 #pragma mark UICollectionView 上下拉刷新
-- (void)example21
+- (void)example31
 {
     __weak __typeof(self) weakSelf = self;
     
@@ -99,6 +100,7 @@ static const CGFloat MJDuration = 2.0;
     layout.sectionInset = UIEdgeInsetsMake(20, 20, 20, 20);
     layout.minimumInteritemSpacing = 20;
     layout.minimumLineSpacing = 20;
+    layout.headerReferenceSize = CGSizeMake(100, 30);
     return [self initWithCollectionViewLayout:layout];
 }
 
@@ -112,6 +114,7 @@ static NSString *const MJCollectionViewCellIdentifier = @"color";
                                  );
     
     [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:MJCollectionViewCellIdentifier];
+    [self.collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header"];
 }
 
 #pragma mark - collection数据源代理
@@ -127,6 +130,13 @@ static NSString *const MJCollectionViewCellIdentifier = @"color";
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:MJCollectionViewCellIdentifier forIndexPath:indexPath];
     cell.backgroundColor = self.colors[indexPath.row];
     return cell;
+}
+
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+    UICollectionReusableView *view = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header" forIndexPath:indexPath];
+    view.backgroundColor = UIColor.systemPurpleColor;
+    
+    return view;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath

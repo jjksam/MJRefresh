@@ -31,23 +31,12 @@
         }
         
         // 设置位置
-        self.mj_y = _scrollView.mj_contentH;
+        self.mj_y = _scrollView.mj_contentH + self.ignoredScrollViewContentInsetBottom;
     } else { // 被移除了
         if (self.hidden == NO) {
             self.scrollView.mj_insetB -= self.mj_h;
         }
     }
-}
-
-#pragma mark - 过期方法
-- (void)setAppearencePercentTriggerAutoRefresh:(CGFloat)appearencePercentTriggerAutoRefresh
-{
-    self.triggerAutomaticallyRefreshPercent = appearencePercentTriggerAutoRefresh;
-}
-
-- (CGFloat)appearencePercentTriggerAutoRefresh
-{
-    return self.triggerAutomaticallyRefreshPercent;
 }
 
 #pragma mark - 实现父类的方法
@@ -205,7 +194,7 @@
         self.scrollView.mj_insetB += self.mj_h;
         
         // 设置位置
-        self.mj_y = _scrollView.mj_contentH;
+        self.mj_y = _scrollView.mj_contentH + self.ignoredScrollViewContentInsetBottom;
     }
 }
 
